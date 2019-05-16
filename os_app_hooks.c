@@ -34,7 +34,7 @@
 #include <os.h>
 #include <os_app_hooks.h>
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 ************************************************************************************************************************
 *                                              SET ALL APPLICATION HOOKS
@@ -47,24 +47,23 @@
 ************************************************************************************************************************
 */
 
-void  App_OS_SetAllHooks (void)
+void App_OS_SetAllHooks(void)
 {
     CPU_SR_ALLOC();
 
-
     CPU_CRITICAL_ENTER();
     OS_AppTaskCreateHookPtr = App_OS_TaskCreateHook;
-    OS_AppTaskDelHookPtr    = App_OS_TaskDelHook;
+    OS_AppTaskDelHookPtr = App_OS_TaskDelHook;
     OS_AppTaskReturnHookPtr = App_OS_TaskReturnHook;
 
-    OS_AppIdleTaskHookPtr   = App_OS_IdleTaskHook;
-    OS_AppStatTaskHookPtr   = App_OS_StatTaskHook;
-    OS_AppTaskSwHookPtr     = App_OS_TaskSwHook;
-    OS_AppTimeTickHookPtr   = App_OS_TimeTickHook;
+    OS_AppIdleTaskHookPtr = App_OS_IdleTaskHook;
+    OS_AppStatTaskHookPtr = App_OS_StatTaskHook;
+    OS_AppTaskSwHookPtr = App_OS_TaskSwHook;
+    OS_AppTimeTickHookPtr = App_OS_TimeTickHook;
     CPU_CRITICAL_EXIT();
 }
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 ************************************************************************************************************************
 *                                             CLEAR ALL APPLICATION HOOKS
@@ -77,24 +76,23 @@ void  App_OS_SetAllHooks (void)
 ************************************************************************************************************************
 */
 
-void  App_OS_ClrAllHooks (void)
+void App_OS_ClrAllHooks(void)
 {
     CPU_SR_ALLOC();
 
-
     CPU_CRITICAL_ENTER();
-    OS_AppTaskCreateHookPtr = (OS_APP_HOOK_TCB )0;
-    OS_AppTaskDelHookPtr    = (OS_APP_HOOK_TCB )0;
-    OS_AppTaskReturnHookPtr = (OS_APP_HOOK_TCB )0;
+    OS_AppTaskCreateHookPtr = (OS_APP_HOOK_TCB)0;
+    OS_AppTaskDelHookPtr = (OS_APP_HOOK_TCB)0;
+    OS_AppTaskReturnHookPtr = (OS_APP_HOOK_TCB)0;
 
-    OS_AppIdleTaskHookPtr   = (OS_APP_HOOK_VOID)0;
-    OS_AppStatTaskHookPtr   = (OS_APP_HOOK_VOID)0;
-    OS_AppTaskSwHookPtr     = (OS_APP_HOOK_VOID)0;
-    OS_AppTimeTickHookPtr   = (OS_APP_HOOK_VOID)0;
+    OS_AppIdleTaskHookPtr = (OS_APP_HOOK_VOID)0;
+    OS_AppStatTaskHookPtr = (OS_APP_HOOK_VOID)0;
+    OS_AppTaskSwHookPtr = (OS_APP_HOOK_VOID)0;
+    OS_AppTimeTickHookPtr = (OS_APP_HOOK_VOID)0;
     CPU_CRITICAL_EXIT();
 }
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 ************************************************************************************************************************
 *                                            APPLICATION TASK CREATION HOOK
@@ -107,12 +105,11 @@ void  App_OS_ClrAllHooks (void)
 ************************************************************************************************************************
 */
 
-void  App_OS_TaskCreateHook (OS_TCB  *p_tcb)
+void App_OS_TaskCreateHook(OS_TCB* p_tcb)
 {
-
 }
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 ************************************************************************************************************************
 *                                            APPLICATION TASK DELETION HOOK
@@ -125,12 +122,11 @@ void  App_OS_TaskCreateHook (OS_TCB  *p_tcb)
 ************************************************************************************************************************
 */
 
-void  App_OS_TaskDelHook (OS_TCB  *p_tcb)
+void App_OS_TaskDelHook(OS_TCB* p_tcb)
 {
-
 }
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 ************************************************************************************************************************
 *                                             APPLICATION TASK RETURN HOOK
@@ -144,12 +140,11 @@ void  App_OS_TaskDelHook (OS_TCB  *p_tcb)
 ************************************************************************************************************************
 */
 
-void  App_OS_TaskReturnHook (OS_TCB  *p_tcb)
+void App_OS_TaskReturnHook(OS_TCB* p_tcb)
 {
-
 }
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 ************************************************************************************************************************
 *                                              APPLICATION IDLE TASK HOOK
@@ -163,12 +158,11 @@ void  App_OS_TaskReturnHook (OS_TCB  *p_tcb)
 ************************************************************************************************************************
 */
 
-void  App_OS_IdleTaskHook (void)
+void App_OS_IdleTaskHook(void)
 {
-
 }
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 ************************************************************************************************************************
 *                                           APPLICATION STATISTIC TASK HOOK
@@ -182,12 +176,11 @@ void  App_OS_IdleTaskHook (void)
 ************************************************************************************************************************
 */
 
-void  App_OS_StatTaskHook (void)
+void App_OS_StatTaskHook(void)
 {
-
 }
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 ************************************************************************************************************************
 *                                             APPLICATION TASK SWITCH HOOK
@@ -204,12 +197,11 @@ void  App_OS_StatTaskHook (void)
 ************************************************************************************************************************
 */
 
-void  App_OS_TaskSwHook (void)
+void App_OS_TaskSwHook(void)
 {
-
 }
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 ************************************************************************************************************************
 *                                                APPLICATION TICK HOOK
@@ -222,7 +214,6 @@ void  App_OS_TaskSwHook (void)
 ************************************************************************************************************************
 */
 
-void  App_OS_TimeTickHook (void)
+void App_OS_TimeTickHook(void)
 {
-
 }

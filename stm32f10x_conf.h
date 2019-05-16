@@ -146,14 +146,14 @@
 
 /* In the following line adjust the value of External High Speed oscillator (HSE)
    used in your application */
-#define HSE_Value    ((u32)25000000) /* Value of the External oscillator in Hz */
+#define HSE_Value ((u32)25000000) /* Value of the External oscillator in Hz */
 
 /* In the following line adjust the External High Speed oscillator (HSE) Startup
    Timeout value */
-#define HSEStartUp_TimeOut    ((u16)0x0500) /* Time out for HSE start up */
+#define HSEStartUp_TimeOut ((u16)0x0500) /* Time out for HSE start up */
 
 /* Exported macro ------------------------------------------------------------*/
-#ifdef  DEBUG
+#ifdef DEBUG
 /*******************************************************************************
 * Macro Name     : assert_param
 * Description    : The assert_param macro is used for function's parameters check.
@@ -164,11 +164,11 @@
 *                    If expr is true, it returns no value.
 * Return         : None
 *******************************************************************************/
-  #define assert_param(expr) ((expr) ? (void)0 : assert_failed((u8 *)__FILE__, __LINE__))
+#define assert_param(expr) ((expr) ? (void)0 : assert_failed((u8*)__FILE__, __LINE__))
 /* Exported functions ------------------------------------------------------- */
-  void assert_failed(u8* file, u32 line);
+void assert_failed(u8* file, u32 line);
 #else
-  #define assert_param(expr) ((void)0)
+#define assert_param(expr) ((void)0)
 #endif /* DEBUG */
 
 #endif /* __STM32F10x_CONF_H */

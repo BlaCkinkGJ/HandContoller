@@ -31,14 +31,13 @@
 ************************************************************************************************************************
 */
 
-#ifndef  OS_APP_HOOKS_H
-#define  OS_APP_HOOKS_H
+#ifndef OS_APP_HOOKS_H
+#define OS_APP_HOOKS_H
 
-
-#ifdef   OS_APP_HOOKS_H_GLOBALS
-#define  OS_APP_HOOKS_H_EXT
+#ifdef OS_APP_HOOKS_H_GLOBALS
+#define OS_APP_HOOKS_H_EXT
 #else
-#define  OS_APP_HOOKS_H_EXT  extern
+#define OS_APP_HOOKS_H_EXT extern
 #endif
 
 /*
@@ -55,18 +54,17 @@
 ************************************************************************************************************************
 */
 
-void  App_OS_SetAllHooks   (void);
-void  App_OS_ClrAllHooks   (void);
+void App_OS_SetAllHooks(void);
+void App_OS_ClrAllHooks(void);
 
+/* ---------------------- HOOKS --------------------- */
+void App_OS_TaskCreateHook(OS_TCB* p_tcb);
+void App_OS_TaskDelHook(OS_TCB* p_tcb);
+void App_OS_TaskReturnHook(OS_TCB* p_tcb);
 
-                                                                /* ---------------------- HOOKS --------------------- */
-void  App_OS_TaskCreateHook(OS_TCB  *p_tcb);
-void  App_OS_TaskDelHook   (OS_TCB  *p_tcb);
-void  App_OS_TaskReturnHook(OS_TCB  *p_tcb);
-
-void  App_OS_IdleTaskHook  (void);
-void  App_OS_StatTaskHook  (void);
-void  App_OS_TaskSwHook    (void);
-void  App_OS_TimeTickHook  (void);
+void App_OS_IdleTaskHook(void);
+void App_OS_StatTaskHook(void);
+void App_OS_TaskSwHook(void);
+void App_OS_TimeTickHook(void);
 
 #endif

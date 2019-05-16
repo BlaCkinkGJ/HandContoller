@@ -11,9 +11,8 @@
 *********************************************************************************************************
 */
 
-#ifndef  __LIB_CFG_H__
-#define  __LIB_CFG_H__
-
+#ifndef __LIB_CFG_H__
+#define __LIB_CFG_H__
 
 /*
 *********************************************************************************************************
@@ -21,10 +20,10 @@
 *********************************************************************************************************
 */
 
-#define  LIB_MEM_CFG_OPTIMIZE_ASM_EN             DEF_ENABLED
-#define  LIB_MEM_CFG_ARG_CHK_EXT_EN              DEF_ENABLED
-#define  LIB_MEM_CFG_ALLOC_EN                    DEF_DISABLED
-#define  LIB_MEM_CFG_POOL_NBR                             10
-#define  LIB_MEM_CFG_HEAP_SIZE                          1000L
+#define LIB_MEM_CFG_OPTIMIZE_ASM_EN DEF_ENABLED
+#define LIB_MEM_CFG_ARG_CHK_EXT_EN DEF_ENABLED
+#define LIB_MEM_CFG_ALLOC_EN DEF_DISABLED
+#define LIB_MEM_CFG_POOL_NBR 10
+#define LIB_MEM_CFG_HEAP_SIZE 1000L
 
 #endif

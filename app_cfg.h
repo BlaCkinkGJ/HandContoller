@@ -28,9 +28,8 @@
 *********************************************************************************************************
 */
 
-#ifndef  __APP_CFG_H__
-#define  __APP_CFG_H__
-
+#ifndef __APP_CFG_H__
+#define __APP_CFG_H__
 
 /*
 *********************************************************************************************************
@@ -38,16 +37,14 @@
 *********************************************************************************************************
 */
 
-
 /*
 *********************************************************************************************************
 *                                            BSP CONFIGURATION
 *********************************************************************************************************
 */
 
-#define  BSP_CFG_LED_SPI2_EN                  DEF_ENABLED       /* Enable/disable LEDs on SPI port.                     */
-#define  BSP_CFG_LED_PIOC_EN                  DEF_ENABLED       /* Enable/disable PIOC LEDs.                            */
-
+#define BSP_CFG_LED_SPI2_EN DEF_ENABLED /* Enable/disable LEDs on SPI port.                     */
+#define BSP_CFG_LED_PIOC_EN DEF_ENABLED /* Enable/disable PIOC LEDs.                            */
 
 /*
 *********************************************************************************************************
@@ -55,15 +52,14 @@
 *********************************************************************************************************
 */
 
-
 /*
 *********************************************************************************************************
 *                                            TASK PRIORITIES
 *********************************************************************************************************
 */
 
-#define  APP_TASK_START_PRIO                              2
-#define  APP_TASK_TEMP_SENSOR_PRIO                        2
+#define APP_TASK_START_PRIO 2
+#define APP_TASK_TEMP_SENSOR_PRIO 2
 
 /*
 *********************************************************************************************************
@@ -72,8 +68,8 @@
 *********************************************************************************************************
 */
 
-#define  APP_TASK_START_STK_SIZE                        128
-#define  APP_TASK_STK_SIZE                              128
+#define APP_TASK_START_STK_SIZE 128
+#define APP_TASK_STK_SIZE 128
 
 /*
 *********************************************************************************************************
@@ -81,7 +77,7 @@
 *********************************************************************************************************
 */
 
-#include  <lib_cfg.h>
+#include <lib_cfg.h>
 
 /*
 *********************************************************************************************************
@@ -89,8 +85,8 @@
 *********************************************************************************************************
 */
 
-#define  APP_CFG_PROBE_OS_PLUGIN_EN    DEF_DISABLED
-#define  APP_CFG_PROBE_COM_EN          DEF_DISABLED
+#define APP_CFG_PROBE_OS_PLUGIN_EN DEF_DISABLED
+#define APP_CFG_PROBE_COM_EN DEF_DISABLED
 
 /*
 *********************************************************************************************************
@@ -98,9 +94,9 @@
 *********************************************************************************************************
 */
 
-#define  BSP_SER_COMM_EN                        DEF_ENABLED
-#define  BSP_CFG_SER_COMM_SEL          BSP_SER_COMM_UART_02
-#define  BSP_CFG_TS_TMR_SEL                               2
+#define BSP_SER_COMM_EN DEF_ENABLED
+#define BSP_CFG_SER_COMM_SEL BSP_SER_COMM_UART_02
+#define BSP_CFG_TS_TMR_SEL 2
 
 /*
 *********************************************************************************************************
@@ -108,16 +104,14 @@
 *********************************************************************************************************
 */
 
-#define  TRACE_LEVEL_OFF                                  0
-#define  TRACE_LEVEL_INFO                                 1
-#define  TRACE_LEVEL_DEBUG                                2
+#define TRACE_LEVEL_OFF 0
+#define TRACE_LEVEL_INFO 1
+#define TRACE_LEVEL_DEBUG 2
 
-#define  APP_TRACE_LEVEL                TRACE_LEVEL_INFO
-#define  APP_TRACE                      BSP_Ser_Printf
+#define APP_TRACE_LEVEL TRACE_LEVEL_INFO
+#define APP_TRACE BSP_Ser_Printf
 
-#define  APP_TRACE_INFO(x)            ((APP_TRACE_LEVEL >= TRACE_LEVEL_INFO)  ? (void)(APP_TRACE x) : (void)0)
-#define  APP_TRACE_DEBUG(x)           ((APP_TRACE_LEVEL >= TRACE_LEVEL_DEBUG) ? (void)(APP_TRACE x) : (void)0)
-
-
+#define APP_TRACE_INFO(x) ((APP_TRACE_LEVEL >= TRACE_LEVEL_INFO) ? (void)(APP_TRACE x) : (void)0)
+#define APP_TRACE_DEBUG(x) ((APP_TRACE_LEVEL >= TRACE_LEVEL_DEBUG) ? (void)(APP_TRACE x) : (void)0)
 
 #endif
