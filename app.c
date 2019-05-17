@@ -3,19 +3,19 @@
 // local variables
 
 static OS_TCB AppTaskStartTCB;
-static OS_TCB TestTaskTCB;
+static OS_TCB DebugMonitorTCB;
 
 // stacks
 
 static CPU_STK AppTaskStartStk[APP_TASK_START_STK_SIZE];
-static CPU_STK TestTaskStk[APP_TASK_STK_SIZE];
+static CPU_STK DebugMonitorStk[APP_TASK_STK_SIZE];
 
 // function prototype
 
 static void AppTaskCreate(void);
 static void AppTaskStart(void* p_arg);
 
-static void TestTask(void* p_arg);
+static void DebugMonitor(void* p_arg);
 
 /**
  * @brief main function.
@@ -104,12 +104,12 @@ static void AppTaskCreate(void)
 {
     OS_ERR err;
 
-    OSTaskCreate((OS_TCB*)&TestTaskTCB,
+    OSTaskCreate((OS_TCB*)&DebugMonitorTCB,
         (CPU_CHAR*)"App Task First",
-        (OS_TASK_PTR)TestTask,
+        (OS_TASK_PTR)DebugMonitor,
         (void*)0,
         (OS_PRIO)3,
-        (CPU_STK*)&TestTaskStk[0],
+        (CPU_STK*)&DebugMonitorStk[0],
         (CPU_STK_SIZE)APP_TASK_STK_SIZE / 10,
         (CPU_STK_SIZE)APP_TASK_STK_SIZE,
         (OS_MSG_QTY)0,
@@ -119,8 +119,6 @@ static void AppTaskCreate(void)
         (OS_ERR*)&err);
 }
 
-const char* myString = "sample";
-
 /**
  * @brief Test the sensors template. You use this task to test the program.
  * If you test all the sensors then you have to erase this code and change the
@@ -128,25 +126,19 @@ const char* myString = "sample";
  * 
  * @param p_arg 
  */
-void TestTask(void* p_arg)
+void DebugMonitor(void* p_arg)
 {
-    int position = 0;
-
     OS_ERR err;
+    int counter[5] = {1, 2, 3, 4, 5};
+    struct DebugContents contents = {
+        &(counter[0]), &(counter[3]), &(counter[2]), &(counter[4]), &(counter[1])
+    };
     while (DEF_TRUE) {
-        LCD_ShowString(1, 1, (CPU_INT08U*)myString, BLACK, WHITE);
-        UART_SendData(USART1, myString[position]);
-        if (position++ == strlen(myString)) { /* check the threshold */
-            BSP_LED_Toggle(1);
-            position = 0;
-            LCD_Clear(WHITE);
-            UART_SendData(USART1, '\r');
-            OSTimeDlyHMSM(0, 0, 0, 5,
-                OS_OPT_TIME_HMSM_STRICT,
-                &err);
-            UART_SendData(USART1, '\n');
-        }
-        OSTimeDlyHMSM(0, 0, 0, 100,
+        drawTitle("sample");
+        drawHeader();
+        drawContents(&contents);
+        //@TODO: Change the message queue to refresh the screen
+        OSTimeDlyHMSM(0, 0, 1, 0,
             OS_OPT_TIME_HMSM_STRICT,
             &err);
     }

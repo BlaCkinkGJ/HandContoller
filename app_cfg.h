@@ -114,4 +114,10 @@
 #define APP_TRACE_INFO(x) ((APP_TRACE_LEVEL >= TRACE_LEVEL_INFO) ? (void)(APP_TRACE x) : (void)0)
 #define APP_TRACE_DEBUG(x) ((APP_TRACE_LEVEL >= TRACE_LEVEL_DEBUG) ? (void)(APP_TRACE x) : (void)0)
 
+/*
+*********************************************************************************************************
+*                                     USER DEFINED CONFIGURATION
+*********************************************************************************************************
+*/
+
 #endif

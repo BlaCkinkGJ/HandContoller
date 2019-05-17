@@ -26,6 +26,10 @@
 #define GRAY 0X8430
 #define LGRAY 0XC618
 
+#define FONT_SIZE 16
+#define MAX_LCD_CHAR_POSX 232
+#define MAX_LCD_CHAR_POSY 304
+
 #define __NOP() __asm volatile("NOP")
 
 void LCD_Clear(CPU_INT16U Color);

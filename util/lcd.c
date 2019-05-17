@@ -275,11 +275,9 @@ void LCD_DrawRectangle(CPU_INT16U xsta, CPU_INT16U ysta, CPU_INT16U xend, CPU_IN
  **/
 void LCD_ShowChar(CPU_INT08U x, CPU_INT16U y, CPU_INT08U num, CPU_INT08U size, CPU_INT16U PenColor, CPU_INT16U BackColor)
 {
-#define MAX_CHAR_POSX 232
-#define MAX_CHAR_POSY 304
     CPU_INT08U temp;
     CPU_INT08U pos, t;
-    if (x > MAX_CHAR_POSX || y > MAX_CHAR_POSY)
+    if (x > MAX_LCD_CHAR_POSX || y > MAX_LCD_CHAR_POSY)
         return;
     LCD_WindowMax(x, y, x + size / 2, y + size);
     LCD_SetCursor(x, y);
@@ -336,11 +334,11 @@ void LCD_ShowCharString(CPU_INT16U x, CPU_INT16U y, const CPU_INT08U* p, CPU_INT
 {
     CPU_INT08U size = 16;
 
-    if (x > MAX_CHAR_POSX) {
+    if (x > MAX_LCD_CHAR_POSX) {
         x = 0;
         y += size;
     }
-    if (y > MAX_CHAR_POSY) {
+    if (y > MAX_LCD_CHAR_POSY) {
         y = x = 0;
         LCD_Clear(WHITE);
     }
