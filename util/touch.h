@@ -1,5 +1,5 @@
-#ifndef __TOUCH_H__
-#define __TOUCH_H__
+#ifndef TOUCH_H
+#define TOUCH_H
 
 #include <cpu.h>
 #include <stm32f10x_lib.h>

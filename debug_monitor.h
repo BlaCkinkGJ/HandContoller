@@ -1,5 +1,5 @@
-#ifndef __DEBUG_MONITOR_H__
-#define __DEBUG_MONITOR_H__
+#ifndef DEBUG_MONITOR_H
+#define DEBUG_MONITOR_H
 
 #include <stdlib.h>
 #include <stdio.h>

@@ -50,17 +50,17 @@ void drawHeader() {
     }
 }
 
-static const char* contentFormatter(int id, void * const * ptr) {
+static const char* contentFormatter(int id, const void * ptr) {
     static char strContentBuf[MAX_LCD_CHAR_POSX];
     switch(id) {
         case 1:
-        sprintf(strContentBuf, "==> %d",*(int *)(*ptr));
+        sprintf(strContentBuf, "==> %d",*(int *)(ptr));
         break;
         case 2:
-        sprintf(strContentBuf, "==)) %d",*(int *)(*ptr));
+        sprintf(strContentBuf, "==)) %d",*(int *)(ptr));
         break;
         default:
-        sprintf(strContentBuf, "error ==> %d %d",id, *(int *)(*ptr));
+        sprintf(strContentBuf, "error ==> %d %d",id, *(int *)(ptr));
     }
     return strContentBuf;
 }
@@ -76,7 +76,7 @@ void drawContents(const struct DebugContents *contents) {
     void * const* ptr = &(contents->flexRatio);
     for(i = 0; i < numOfHeader; i++) {
         LCD_ShowString(1, FONT_SIZE*(i*3+3),
-            (CPU_INT08U*)contentFormatter(i, ptr),
+            (CPU_INT08U*)contentFormatter(i, *ptr),
             BLACK,
             WHITE);
         ptr++;

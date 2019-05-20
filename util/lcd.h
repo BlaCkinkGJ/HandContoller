@@ -1,5 +1,5 @@
-#ifndef __LCD_H__
-#define __LCD_H__
+#ifndef LCD_H
+#define LCD_H
 
 //#include "hw_config.h"
 #include <cpu.h>
