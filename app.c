@@ -67,13 +67,13 @@ static void AppTaskStart(void* p_arg)
     (void)p_arg;
 
     BSP_Init(); /* Initialize BSP functions */
+    CPU_Init();
 
+    flexInit();
     LCD_Init(); /* Initialize TFT-LCD */
     Touch_Configuration(); /* Initialize TFT-LCD configuration */
     //Touch_Adjust();
     LCD_Clear(WHITE); /* Refresh TFT-LCD screen to WHITE */
-
-    CPU_Init();
     UART_CNF(); /* Initialize USART */
 
     cpu_clk_freq = BSP_CPU_ClkFreq();
@@ -126,15 +126,17 @@ static void AppTaskCreate(void)
  * 
  * @param p_arg 
  */
-void DebugMonitor(void* p_arg)
+static void DebugMonitor(void* p_arg)
 {
     OS_ERR err;
-    int counter[5] = {1, 2, 3, 4, 5};
-    struct DebugContents contents = {
-        &(counter[0]), &(counter[3]), &(counter[2]), &(counter[4]), &(counter[1])
-    };
+    int pack[5] = {0, 0, 0, 0, 0};
+    struct DebugContents contents;
     while (DEF_TRUE) {
-        drawTitle("sample");
+        pack[0] = getFlexValue(0);
+        pack[1] = getFlexValue(1);
+        pack[2] = getFlexValue(2);
+        setContents(&contents, pack);
+        drawTitle("flex Mode");
         drawHeader();
         drawContents(&contents);
         //@TODO: Change the message queue to refresh the screen

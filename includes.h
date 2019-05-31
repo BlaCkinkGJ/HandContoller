@@ -90,6 +90,7 @@
 #include <touch.h>
 #include <uart.h>
 #include <debug_monitor.h>
+#include <flex_sensor.h>
 
 /*
 *********************************************************************************************************

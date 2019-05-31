@@ -50,13 +50,22 @@ void drawHeader() {
     }
 }
 
+/**
+ * @brief content formatting
+ * 
+ * @param id 
+ * @param ptr 
+ * @return const char* 
+ */
 static const char* contentFormatter(int id, const void * ptr) {
     static char strContentBuf[MAX_LCD_CHAR_POSX];
     switch(id) {
+        case 0:
         case 1:
-        sprintf(strContentBuf, "==> %d",*(int *)(ptr));
-        break;
         case 2:
+        sprintf(strContentBuf, "==> %4d",*(int *)(ptr));
+        break;
+        case 3:
         sprintf(strContentBuf, "==)) %d",*(int *)(ptr));
         break;
         default:
@@ -81,4 +90,21 @@ void drawContents(const struct DebugContents *contents) {
             WHITE);
         ptr++;
     }
+}
+
+/**
+ * @brief Set the Contents object.
+ * But sadly I think this will be changed
+ * because this dependent on the value(int *)
+ * in other words, THIS IS NOT GENERIC FUNCTION!
+ * 
+ * @param contents 
+ * @param pack 
+ */
+void setContents(struct DebugContents *contents, int *pack) {
+    contents->flexRatio = (void *)&(pack[0]);
+    contents->bluetoothStatus = (void *)&(pack[1]);
+    contents->gyroValue = (void *)&(pack[2]);
+    contents->axisAccel2 = (void *)&(pack[3]);
+    contents->axisAccel3 = (void *)&(pack[4]);
 }

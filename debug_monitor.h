@@ -16,5 +16,6 @@ struct DebugContents {
 void drawTitle(const char*);
 void drawHeader();
 void drawContents(const struct DebugContents*);
+void setContents(struct DebugContents *contents, int *pack);
 
 #endif
