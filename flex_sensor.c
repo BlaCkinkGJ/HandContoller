@@ -1,3 +1,11 @@
+/**
+ * @file flex_sensor.c
+ * @author BlaCkinkGJ (ss5kijun@gmail.com)
+ * @brief flex sensor implementation files
+ * @version 0.1
+ * @date 2019-06-06
+ * 
+ */
 #include <flex_sensor.h>
 
 /**
@@ -12,11 +20,13 @@ static vu32 flexValue[3];
  * 
  */
 static void
-flex_RCC_init() {
+flex_RCC_init()
+{
     RCC_APB2PeriphClockCmd((RCC_APB2Periph_AFIO
-                         | RCC_APB2Periph_GPIOC
-                         | RCC_APB2Periph_GPIOD
-                         | RCC_APB2Periph_ADC1),ENABLE);
+                               | RCC_APB2Periph_GPIOC
+                               | RCC_APB2Periph_GPIOD
+                               | RCC_APB2Periph_ADC1),
+        ENABLE);
     RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
 }
 
@@ -28,11 +38,12 @@ flex_RCC_init() {
  * @param GPIO_Pin 
  */
 static void
-flex_GPIO_Init(GPIO_TypeDef* GPIO, u16 GPIO_Pin[3]) {
+flex_GPIO_Init(GPIO_TypeDef* GPIO, u16 GPIO_Pin[3])
+{
     GPIO_InitTypeDef GPIO_InitStructure = {
-        .GPIO_Pin   = GPIO_Pin[0] | GPIO_Pin[1] | GPIO_Pin[2],
+        .GPIO_Pin = GPIO_Pin[0] | GPIO_Pin[1] | GPIO_Pin[2],
         .GPIO_Speed = GPIO_Speed_10MHz,
-        .GPIO_Mode  = GPIO_Mode_AIN
+        .GPIO_Mode = GPIO_Mode_AIN
     };
 
     GPIO_Init(GPIO, &GPIO_InitStructure);
@@ -42,14 +53,15 @@ flex_GPIO_Init(GPIO_TypeDef* GPIO, u16 GPIO_Pin[3]) {
  * @brief ADC initialization about the flex sensor
  * Currently, ONLY THREE sensor can use * * @param ADC * @param ADC_Channel */
 static void
-flex_ADC_Init(ADC_TypeDef* ADC, u8 ADC_Channel[3]){
+flex_ADC_Init(ADC_TypeDef* ADC, u8 ADC_Channel[3])
+{
     ADC_InitTypeDef ADC_InitStructure = {
-        .ADC_Mode               = ADC_Mode_Independent,
-        .ADC_ScanConvMode       = ENABLE,
+        .ADC_Mode = ADC_Mode_Independent,
+        .ADC_ScanConvMode = ENABLE,
         .ADC_ContinuousConvMode = ENABLE,
-        .ADC_ExternalTrigConv   = ADC_ExternalTrigConv_None,
-        .ADC_DataAlign          = ADC_DataAlign_Right,
-        .ADC_NbrOfChannel       = 3
+        .ADC_ExternalTrigConv = ADC_ExternalTrigConv_None,
+        .ADC_DataAlign = ADC_DataAlign_Right,
+        .ADC_NbrOfChannel = 3
     };
 
     ADC_DeInit(ADC);
@@ -69,19 +81,20 @@ flex_ADC_Init(ADC_TypeDef* ADC, u8 ADC_Channel[3]){
  * @param DMA_Channel 
  */
 static void
-flex_DMA_Init(ADC_TypeDef* ADC, DMA_Channel_TypeDef *DMA_Channel) {
+flex_DMA_Init(ADC_TypeDef* ADC, DMA_Channel_TypeDef* DMA_Channel)
+{
     DMA_InitTypeDef DMA_InitStructure = {
         .DMA_PeripheralBaseAddr = (u32)&ADC->DR,
-        .DMA_MemoryBaseAddr     = (vu32) flexValue,
-        .DMA_DIR                = DMA_DIR_PeripheralSRC,
-        .DMA_BufferSize         = 3,
-        .DMA_PeripheralInc      = DMA_PeripheralInc_Disable,
-        .DMA_MemoryInc          = DMA_MemoryInc_Enable,
+        .DMA_MemoryBaseAddr = (vu32)flexValue,
+        .DMA_DIR = DMA_DIR_PeripheralSRC,
+        .DMA_BufferSize = 3,
+        .DMA_PeripheralInc = DMA_PeripheralInc_Disable,
+        .DMA_MemoryInc = DMA_MemoryInc_Enable,
         .DMA_PeripheralDataSize = DMA_PeripheralDataSize_Word,
-        .DMA_MemoryDataSize     = DMA_MemoryDataSize_Word,
-        .DMA_Mode               = DMA_Mode_Circular,
-        .DMA_Priority           = DMA_Priority_High,
-        .DMA_M2M                = DMA_M2M_Disable
+        .DMA_MemoryDataSize = DMA_MemoryDataSize_Word,
+        .DMA_Mode = DMA_Mode_Circular,
+        .DMA_Priority = DMA_Priority_High,
+        .DMA_M2M = DMA_M2M_Disable
     };
     DMA_DeInit(DMA_Channel);
     DMA_Init(DMA_Channel, &DMA_InitStructure);
@@ -94,11 +107,14 @@ flex_DMA_Init(ADC_TypeDef* ADC, DMA_Channel_TypeDef *DMA_Channel) {
  * @param ADC 
  */
 static void
-flex_ADC_Start(ADC_TypeDef* ADC) {
+flex_ADC_Start(ADC_TypeDef* ADC)
+{
     ADC_ResetCalibration(ADC);
-    while(ADC_GetResetCalibrationStatus(ADC));
+    while (ADC_GetResetCalibrationStatus(ADC))
+        ;
     ADC_StartCalibration(ADC);
-    while(ADC_GetCalibrationStatus(ADC));
+    while (ADC_GetCalibrationStatus(ADC))
+        ;
     ADC_SoftwareStartConvCmd(ADC, ENABLE);
 }
 
@@ -107,8 +123,9 @@ flex_ADC_Start(ADC_TypeDef* ADC) {
  * Currently, this set the PC1(port C1) 
  * 
  */
-void flexInit() {
-    
+void flexInit()
+{
+
     u8 ADC_Channels[3] = {
         ADC_Channel_11,
         ADC_Channel_12,
@@ -131,7 +148,8 @@ void flexInit() {
  * 
  * @return int 
  */
-int getFlexValue(int index) {
+int getFlexValue(int index)
+{
     if (index < 0 || index >= 3)
         return -1;
     return (int)(flexValue[index]);

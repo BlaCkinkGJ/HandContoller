@@ -1,21 +1,28 @@
 #ifndef DEBUG_MONITOR_H
 #define DEBUG_MONITOR_H
 
-#include <stdlib.h>
-#include <stdio.h>
+/**
+ * @file debug_monitor.h
+ * @author BlaCkinkGJ (ss5kijun@gmail.com)
+ * @brief debug monitor header
+ * @version 0.1
+ * @date 2019-06-06
+ * 
+ */
 #include <lcd.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 struct DebugContents {
-    void *flexRatio;
-    void *bluetoothStatus;
-    void *gyroValue;
-    void *axisAccel2;
-    void *axisAccel3;
+    void* flexRatio;
+    void* bluetoothStatus;
+    void* gyroValue;
+    void* axisAccel3;
 };
 
 void drawTitle(const char*);
 void drawHeader();
 void drawContents(const struct DebugContents*);
-void setContents(struct DebugContents *contents, int *pack);
+void setContents(struct DebugContents* contents, void** pack);
 
 #endif

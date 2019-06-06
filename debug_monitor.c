@@ -1,13 +1,20 @@
+/**
+ * @file debug_monitor.c
+ * @author BlaCkinkGJ (ss5kijun@gmil.com)
+ * @brief debug monitor implementation files
+ * @version 0.1
+ * @date 2019-06-06
+ * 
+ */
 #include <debug_monitor.h>
 
-static const char *headers[5] = {
+static const char* headers[] = {
     "# Flex Ratio",
     "# Bluetooth Status",
     "# Gyro Value",
     "# 3-axis accelerometers",
-    "# 1-axis accelerometers"
 };
-static const int numOfHeader = sizeof(headers)/sizeof(const char *);
+static const int numOfHeader = sizeof(headers) / sizeof(const char*);
 
 /**
  * @brief To use something specific format.
@@ -17,7 +24,8 @@ static const int numOfHeader = sizeof(headers)/sizeof(const char *);
  * @param data
  * @return const char* 
  */
-static const char* formatter(const char* format, const char* data) {
+static const char* formatter(const char* format, const char* data)
+{
     static char strBuf[MAX_LCD_CHAR_POSX];
     sprintf(strBuf, format, data);
     return strBuf;
@@ -28,11 +36,12 @@ static const char* formatter(const char* format, const char* data) {
  * 
  * @param title 
  */
-void drawTitle(const char* title) {
+void drawTitle(const char* title)
+{
     // LCD Screen: x, y,
     LCD_ShowString(1, 1,
-        (CPU_INT08U*)formatter("[[ %s ]]",title),
-        BLACK,  // foreground color
+        (CPU_INT08U*)formatter("[[ %s ]]", title),
+        BLACK, // foreground color
         WHITE); // background color
 }
 
@@ -40,10 +49,11 @@ void drawTitle(const char* title) {
  * @brief draw the header
  * 
  */
-void drawHeader() {
+void drawHeader()
+{
     int i = 0;
-    for(i = 0; i < numOfHeader; i++) {
-        LCD_ShowString(1, FONT_SIZE*(i*3+2),
+    for (i = 0; i < numOfHeader; i++) {
+        LCD_ShowString(1, FONT_SIZE * (i * 3 + 2),
             (CPU_INT08U*)formatter("%s", headers[i]),
             BLACK,
             WHITE);
@@ -57,19 +67,17 @@ void drawHeader() {
  * @param ptr 
  * @return const char* 
  */
-static const char* contentFormatter(int id, const void * ptr) {
+static const char* contentFormatter(int id, const void* ptr)
+{
     static char strContentBuf[MAX_LCD_CHAR_POSX];
-    switch(id) {
-        case 0:
-        case 1:
-        case 2:
-        sprintf(strContentBuf, "==> %4d",*(int *)(ptr));
+    switch (id) {
+    case 0:
+    case 2:
+    case 3:
+        sprintf(strContentBuf, "%s", (char*)(ptr));
         break;
-        case 3:
-        sprintf(strContentBuf, "==)) %d",*(int *)(ptr));
-        break;
-        default:
-        sprintf(strContentBuf, "error ==> %d %d",id, *(int *)(ptr));
+    default:
+        sprintf(strContentBuf, "NOT IMPLEMENTED");
     }
     return strContentBuf;
 }
@@ -79,19 +87,19 @@ static const char* contentFormatter(int id, const void * ptr) {
  * 
  * @param contents 
  */
-void drawContents(const struct DebugContents *contents) {
+void drawContents(const struct DebugContents* contents)
+{
     int i = 0;
     //@TODO: you have to change this section for debug contents
-    void * const* ptr = &(contents->flexRatio);
-    for(i = 0; i < numOfHeader; i++) {
-        LCD_ShowString(1, FONT_SIZE*(i*3+3),
-            (CPU_INT08U*)contentFormatter(i, *ptr),
+    void* const* structStartPtr = &(contents->flexRatio);
+    for (i = 0; i < numOfHeader; i++) {
+        LCD_ShowString(1, FONT_SIZE * (i * 3 + 3),
+            (CPU_INT08U*)contentFormatter(i, *structStartPtr),
             BLACK,
             WHITE);
-        ptr++;
+        structStartPtr++;
     }
 }
-
 /**
  * @brief Set the Contents object.
  * But sadly I think this will be changed
@@ -101,10 +109,10 @@ void drawContents(const struct DebugContents *contents) {
  * @param contents 
  * @param pack 
  */
-void setContents(struct DebugContents *contents, int *pack) {
-    contents->flexRatio = (void *)&(pack[0]);
-    contents->bluetoothStatus = (void *)&(pack[1]);
-    contents->gyroValue = (void *)&(pack[2]);
-    contents->axisAccel2 = (void *)&(pack[3]);
-    contents->axisAccel3 = (void *)&(pack[4]);
+void setContents(struct DebugContents* contents, void** pack)
+{
+    contents->flexRatio = pack[0];
+    contents->bluetoothStatus = pack[1];
+    contents->gyroValue = pack[2];
+    contents->axisAccel3 = pack[3];
 }
