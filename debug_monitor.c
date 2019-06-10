@@ -10,11 +10,14 @@
 
 static const char* headers[] = {
     "# Flex Ratio",
-    "# Bluetooth Status",
     "# Gyro Value",
     "# 3-axis accelerometers",
 };
 static const int numOfHeader = sizeof(headers) / sizeof(const char*);
+static char flexString[256];
+static char gyroString[256];
+static char accelString[256];
+
 
 /**
  * @brief To use something specific format.
@@ -72,8 +75,8 @@ static const char* contentFormatter(int id, const void* ptr)
     static char strContentBuf[MAX_LCD_CHAR_POSX];
     switch (id) {
     case 0:
+    case 1:
     case 2:
-    case 3:
         sprintf(strContentBuf, "%s", (char*)(ptr));
         break;
     default:
@@ -106,13 +109,15 @@ void drawContents(const struct DebugContents* contents)
  * because this dependent on the value(int *)
  * in other words, THIS IS NOT GENERIC FUNCTION!
  * 
- * @param contents 
+ * @param contents, flex, gyro
  * @param pack 
  */
-void setContents(struct DebugContents* contents, void** pack)
+void setContents(struct DebugContents* contents, CPU_INT16S *flex, CPU_INT16S *gyro)
 {
-    contents->flexRatio = pack[0];
-    contents->bluetoothStatus = pack[1];
-    contents->gyroValue = pack[2];
-    contents->axisAccel3 = pack[3];
+    sprintf(flexString, "%-4d%-4d%-4d", flex[0], flex[1], flex[2]);
+    sprintf(gyroString, "%-6d%-6d%-6d", gyro[0], gyro[1], gyro[2]);
+    sprintf(accelString, "%-6d%-6d%-6d", gyro[3], gyro[4], gyro[5]);
+    contents->flexRatio = flexString;
+    contents->gyroValue = gyroString;
+    contents->axisAccel3 = accelString;
 }

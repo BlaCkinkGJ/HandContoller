@@ -10,4 +10,7 @@
 void UART_NVIC_Init();
 void UART_CNF();
 void UART_SendStr(USART_TypeDef* UART, const char* data);
+
+void USART1_IRQHandler();
+void USART2_IRQHandler();
 #endif

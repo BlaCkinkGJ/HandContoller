@@ -69,8 +69,7 @@
 */
 
 #define APP_TASK_START_STK_SIZE 128
-#define APP_TASK_STK_SIZE 128
-
+#define APP_TASK_STK_SIZE 512
 /*
 *********************************************************************************************************
 *                                        uC/LIB CONFIGURATION
@@ -121,5 +120,15 @@
 */
 
 #define ROUND_ROBIN
+#define JSON_FORMAT "{\"flex\":{\"1\":%d,\"2\":%d,\"3\":%d},\"Gyro\":{\"X\":%d,\"Y\":%d,\"Z\":%d},\"Accel\":{\"X\":%d,\"Y\":%d,\"Z\":%d}}"
+
+#define PARTITION_SIZE 20
+#define PARTITION_QTY 5
+
+#define FLEX_MSG_Q 50
+#define GYRO_MSG_Q 25
+
+#define PEND_TABLE_SIZE 2
+#define PEND_TABLE_TIMEOUT 0
 
 #endif

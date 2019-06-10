@@ -12,6 +12,33 @@
 
 static BSP_OS_SEM BSP_SerLock;
 
+void USART1_IRQHandler()
+{
+    unsigned char recvBuf = '\0';
+
+    // you have to change this section
+    while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET)
+        ;
+    recvBuf = (unsigned char)USART_ReceiveData(USART1);
+    USART_SendData(USART1, recvBuf);
+    USART_SendData(USART2, recvBuf);
+
+    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+}
+
+void USART2_IRQHandler()
+{
+    unsigned char recvBuf = '\0';
+
+    // you have to change this section
+    while (USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET)
+        ;
+    recvBuf = (unsigned char)USART_ReceiveData(USART2);
+    USART_SendData(USART1, recvBuf);
+
+    USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+}
+
 void UART_NVIC_Init()
 {
     NVIC_InitTypeDef NVIC_InitStructure;
@@ -104,7 +131,7 @@ void UART_SendStr(USART_TypeDef* UART, const char* data)
     BSP_OS_SemWait(&BSP_SerLock, 0);
     for (int idx = 0; idx < len; idx++) {
         USART_SendData(UART, data[idx]);
-        OSTimeDlyHMSM(0, 0, 0, 10,
+        OSTimeDlyHMSM(0, 0, 0, 5,
             OS_OPT_TIME_HMSM_STRICT,
             &err);
     } // end for

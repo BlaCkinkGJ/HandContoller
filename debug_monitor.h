@@ -15,7 +15,6 @@
 
 struct DebugContents {
     void* flexRatio;
-    void* bluetoothStatus;
     void* gyroValue;
     void* axisAccel3;
 };
@@ -23,6 +22,6 @@ struct DebugContents {
 void drawTitle(const char*);
 void drawHeader();
 void drawContents(const struct DebugContents*);
-void setContents(struct DebugContents* contents, void** pack);
+void setContents(struct DebugContents* contents, CPU_INT16S *flex, CPU_INT16S *gyro);
 
 #endif
