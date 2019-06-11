@@ -35,7 +35,7 @@ void USART2_IRQHandler()
         ;
     recvBuf = (unsigned char)USART_ReceiveData(USART2);
     USART_SendData(USART1, recvBuf);
-
+      
     USART_ClearITPendingBit(USART2, USART_IT_RXNE);
 }
 
@@ -130,18 +130,28 @@ void UART_SendStr(USART_TypeDef* UART, const char* data)
      */
     BSP_OS_SemWait(&BSP_SerLock, 0);
     for (int idx = 0; idx < len; idx++) {
-        USART_SendData(UART, data[idx]);
-        OSTimeDlyHMSM(0, 0, 0, 5,
+      while(1) {
+        if (USART_GetFlagStatus(UART, USART_FLAG_TXE) != RESET){
+          USART_SendData(UART, data[idx]);
+          break;
+        } else {
+          OSTimeDlyHMSM(0, 0, 0, 1,
             OS_OPT_TIME_HMSM_STRICT,
             &err);
+        }
+      }
     } // end for
-    USART_SendData(UART, '\r');
-    OSTimeDlyHMSM(0, 0, 0, 5,
-        OS_OPT_TIME_HMSM_STRICT,
-        &err);
-    USART_SendData(UART, '\n');
-    OSTimeDlyHMSM(0, 0, 0, 5,
-        OS_OPT_TIME_HMSM_STRICT,
-        &err);
     BSP_OS_SemPost(&BSP_SerLock);
+}
+
+void scanSetup(){
+  USART_SendData(USART2, 'A');
+  USART_SendData(USART2, 'T');
+  USART_SendData(USART2, '+');
+  USART_SendData(USART2, 'B');
+  USART_SendData(USART2, 'T');
+  USART_SendData(USART2, 'S');
+  USART_SendData(USART2, 'C');
+  USART_SendData(USART2, 'A');
+  USART_SendData(USART2, 'N');
 }

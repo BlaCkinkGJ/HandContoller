@@ -4,6 +4,7 @@
 #include <bsp.h>
 #include <stm32f10x_lib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define UART_STR_BUF 1024
 
@@ -13,4 +14,6 @@ void UART_SendStr(USART_TypeDef* UART, const char* data);
 
 void USART1_IRQHandler();
 void USART2_IRQHandler();
+
+void scanSetup();
 #endif

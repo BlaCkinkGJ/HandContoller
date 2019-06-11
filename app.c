@@ -123,8 +123,9 @@ static void AppTaskStart(void* p_arg)
  */
 static void AppTaskCreate(void)
 {
+    scanSetup();
+#ifndef BLUETOOTH_DEBUG
     OS_ERR err;
-    UART_SendStr(USART2, "AT+BTSCAN");
 
     OSQCreate((OS_Q *)&Flex_Q,
         (CPU_CHAR *)"Flex queue",
@@ -151,7 +152,7 @@ static void AppTaskCreate(void)
         (CPU_STK_SIZE)APP_TASK_STK_SIZE / 10,
         (CPU_STK_SIZE)APP_TASK_STK_SIZE,
         (OS_MSG_QTY)0,
-        (OS_TICK)5, /* Time Qunanta(This for Round Robin) */
+        (OS_TICK)5, // Time Qunanta(This for Round Robin) 
         (void*)0,
         (OS_OPT)(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
         (OS_ERR*)&err);
@@ -164,7 +165,7 @@ static void AppTaskCreate(void)
         (CPU_STK_SIZE)APP_TASK_STK_SIZE / 10,
         (CPU_STK_SIZE)APP_TASK_STK_SIZE,
         (OS_MSG_QTY)0,
-        (OS_TICK)5, /* Time Qunanta(This for Round Robin) */
+        (OS_TICK)5,
         (void*)0,
         (OS_OPT)(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
         (OS_ERR*)&err);
@@ -177,7 +178,7 @@ static void AppTaskCreate(void)
         (CPU_STK_SIZE)APP_TASK_STK_SIZE / 10,
         (CPU_STK_SIZE)APP_TASK_STK_SIZE,
         (OS_MSG_QTY)0,
-        (OS_TICK)5, /* Time Qunanta(This for Round Robin) */
+        (OS_TICK)5,
         (void*)0,
         (OS_OPT)(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
         (OS_ERR*)&err);
@@ -190,10 +191,11 @@ static void AppTaskCreate(void)
         (CPU_STK_SIZE)APP_TASK_STK_SIZE / 10,
         (CPU_STK_SIZE)APP_TASK_STK_SIZE,
         (OS_MSG_QTY)0,
-        (OS_TICK)5, /* Time Qunanta(This for Round Robin) */
+        (OS_TICK)5,
         (void*)0,
         (OS_OPT)(OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
         (OS_ERR*)&err);
+#endif
 }
 
 /**
@@ -257,7 +259,7 @@ static void SendBluetooth(void* p_arg)
               , gyroDataBlkPtr[0], gyroDataBlkPtr[1], gyroDataBlkPtr[2]
               , gyroDataBlkPtr[3], gyroDataBlkPtr[4], gyroDataBlkPtr[5]);
           setContents(&contents, flexDataBlkPtr, gyroDataBlkPtr);
-          UART_SendStr(USART2, (const char*)buffer);
+          UART_SendStr(USART2, (const char *)buffer);
         }
     }
 }

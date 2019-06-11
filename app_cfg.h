@@ -120,7 +120,7 @@
 */
 
 #define ROUND_ROBIN
-#define JSON_FORMAT "{\"flex\":{\"1\":%d,\"2\":%d,\"3\":%d},\"Gyro\":{\"X\":%d,\"Y\":%d,\"Z\":%d},\"Accel\":{\"X\":%d,\"Y\":%d,\"Z\":%d}}"
+#define JSON_FORMAT "{\"flex\":{\"1\":%d,\"2\":%d,\"3\":%d},\"Gyro\":{\"X\":%d,\"Y\":%d,\"Z\":%d},\"Accel\":{\"X\":%d,\"Y\":%d,\"Z\":%d}}\r\n"
 
 #define PARTITION_SIZE 20
 #define PARTITION_QTY 5
