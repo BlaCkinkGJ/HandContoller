@@ -18,7 +18,6 @@ static char flexString[256];
 static char gyroString[256];
 static char accelString[256];
 
-
 /**
  * @brief To use something specific format.
  * this is the private function.
@@ -112,7 +111,7 @@ void drawContents(const struct DebugContents* contents)
  * @param contents, flex, gyro
  * @param pack 
  */
-void setContents(struct DebugContents* contents, CPU_INT16S *flex, CPU_INT16S *gyro)
+void setContents(struct DebugContents* contents, CPU_INT16S* flex, CPU_INT16S* gyro)
 {
     sprintf(flexString, "%-4d%-4d%-4d", flex[0], flex[1], flex[2]);
     sprintf(gyroString, "%-6d%-6d%-6d", gyro[0], gyro[1], gyro[2]);

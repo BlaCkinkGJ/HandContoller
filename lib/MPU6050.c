@@ -350,6 +350,8 @@ void MPU6050_I2C_Init()
 void MPU6050_I2C_ByteWrite(CPU_INT08U slaveAddr, CPU_INT08U* pBuffer, CPU_INT08U writeAddr)
 {
     // ENTR_CRT_SECTION();
+    CPU_SR_ALLOC();
+    CPU_CRITICAL_ENTER();
 
     /* Send START condition */
     I2C_GenerateSTART(MPU6050_I2C, ENABLE);
@@ -379,6 +381,8 @@ void MPU6050_I2C_ByteWrite(CPU_INT08U slaveAddr, CPU_INT08U* pBuffer, CPU_INT08U
     I2C_GenerateSTOP(MPU6050_I2C, ENABLE);
 
     // EXT_CRT_SECTION();
+    I2C_AcknowledgeConfig(MPU6050_I2C, ENABLE);
+    CPU_CRITICAL_EXIT();
 }
 
 /**
